@@ -10,7 +10,7 @@ g = 9.8  # en m/s^2, aceleracion de gravedad
 R = 1. # en m, largo del pendulo
 
 phi_0 = np.pi / 2
-omega_0 = 0
+omega_0 = 10
 
 # Graficamos la solucion de pequeñas oscilaciones
 
@@ -54,7 +54,7 @@ def paso_rk2(func, dt, t_n, y_n):
     return output
 
 
-dt = 0.01
+dt = 0.001
 t_eval_rk2 = np.arange(0, 2 * T, dt)
 y_rk2 = np.zeros((len(t_eval_rk2), 2))
 
@@ -67,7 +67,7 @@ for i in range(1, len(t_eval_rk2)):
 plt.figure(1)
 plt.clf()
 
-plt.plot(t_to_plot, phi_pequenas_osc, label='peq osc')
+# plt.plot(t_to_plot, phi_pequenas_osc, label='peq osc')
 plt.plot(t_eval_rk2, y_rk2[:,0], label='sol rk2')
 
 plt.xlabel('tiempo [s]')

@@ -10,11 +10,11 @@ l = 5.533 # m
 gamma = 2.533 # s^-1
 
 
-phi_0 = 1 
-omega_0 = 1
+phi_0 = np.pi / gamma
+omega_0 = 0
 
 def pendulo_viscoso(t,y):
-    output = np.array(y[1], -gamma * y[1] - (g/l)* np.sin(y[0]))
+    output = np.array([y[1], -gamma * y[1] - (g/l)* np.sin(y[0])])
     return output
 
 def k1(func, dt, t_n, y_n):
@@ -43,6 +43,27 @@ def paso_rk4(func, dt, t_n, y_n):
     k4_n = k4(func, dt, t_n, y_n)
     output = y_n + (1/6) * (k1_n + 2 * k2_n + 2 * k3_n + k4_n)
     return output
+
+T = 5*np.pi 
+
+dt = 0.001
+t_eval_rk4 = np.arange(0, 2 * T, dt)
+y_rk4 = np.zeros((len(t_eval_rk4), 2))
+
+# cond inicial
+y_rk4[0] = [phi_0, omega_0]
+for i in range(1, len(t_eval_rk4)):
+    y_rk4[i] = paso_rk4(pendulo_viscoso, dt, t_eval_rk4[i-1], y_rk4[i-1])
+
+plt.figure(1)
+plt.clf()
+
+plt.plot(t_eval_rk4, y_rk4[:,0], label='Sol. RK4')
+
+plt.xlabel('tiempo [s]')
+plt.ylabel(r'$\phi(t)$', fontsize=15)
+plt.legend()
+plt.show()
 
 
 
