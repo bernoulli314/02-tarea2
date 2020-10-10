@@ -22,7 +22,7 @@ def k1(func, dt, t_n, y_n):
     return output
 
 def k2(func, dt, t_n, y_n):
-    k1_n = K1(func, dt, t_n, y_n)
+    k1_n = k1(func, dt, t_n, y_n)
     k2_n = dt * func(t_n + dt/2, y_n + k1_n / 2)
     return k2_n
 
@@ -35,6 +35,14 @@ def k4(func, dt, t_n, y_n):
     k3_n = k3(func, dt, t_n, y_n)
     k4_n = dt * func(t_n + dt, y_n + k3_n)
     return k4_n
+
+def paso_rk4(func, dt, t_n, y_n):
+    k1_n = k1(func, dt, t_n, y_n)
+    k2_n = k2(func, dt, t_n, y_n)
+    k3_n = k3(func, dt, t_n, y_n)
+    k4_n = k4(func, dt, t_n, y_n)
+    output = y_n + (1/6) * (k1_n + 2 * k2_n + 2 * k3_n + k4_n)
+    return output
 
 
 
