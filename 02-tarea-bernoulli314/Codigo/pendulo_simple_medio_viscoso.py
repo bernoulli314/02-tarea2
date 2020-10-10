@@ -17,6 +17,26 @@ def pendulo_viscoso(t,y):
     output = np.array(y[1], -gamma * y[1] - (g/l)* np.sin(y[0]))
     return output
 
+def k1(func, dt, t_n, y_n):
+    output = dt * func(t_n, y_n)
+    return output
+
+def k2(func, dt, t_n, y_n):
+    k1_n = K1(func, dt, t_n, y_n)
+    k2_n = dt * func(t_n + dt/2, y_n + k1_n / 2)
+    return k2_n
+
+def k3(func, dt, t_n, y_n):
+    k2_n = k2(func, dt, t_n, y_n)
+    k3_n = dt * func(t_n + dt/2, y_n + k2_n / 2)
+    return k3_n
+
+def k4(func, dt, t_n, y_n):
+    k3_n = k3(func, dt, t_n, y_n)
+    k4_n = dt * func(t_n + dt, y_n + k3_n)
+    return k4_n
+
+
 
 
 
