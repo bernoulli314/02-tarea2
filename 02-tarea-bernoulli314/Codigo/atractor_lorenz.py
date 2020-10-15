@@ -38,9 +38,9 @@ def lorenz(s, w):
                       w[0] * (rho - w[2]) - w[1], w[0] * w[1] - beta * w[2]])
     return output
 
-w_0 = np.array([5, 5, 1])           # condiciones iniciales
+w_0 = np.array([1, 1, 1])           # condiciones iniciales
 s_span = np.array([0.0, 100.0])         # valor inicial y final de s
-times = np.linspace(s_span[0], s_span[1], 50000)        # cant de evaluaciones
+times = np.linspace(s_span[0], s_span[1], 5000)        # cant de evaluaciones
 
 rk4 = solve_ivp(lorenz, s_span, w_0, t_eval=times)      # rk4
 
