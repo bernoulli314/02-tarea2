@@ -104,10 +104,10 @@ diferencia_relativa_promedio = np.sum(diferencia_relativa) / 1537
 plt.figure(1)
 plt.clf()
 
+# grafico comparativo p.o. y rk4
 plt.plot(t_to_plot, phi_pequenas_osc, label='Pequeñas osc.')
 plt.plot(t_eval_rk4, y_rk4[:, 0], label='Solución RK4')
 plt.plot(t_to_plot, amplitud, '--', label='Amplitud de Amortiguamiento')
-plt.axhline(0, color = 'red')
 
 plt.xlabel('Tiempo [s]', fontsize=15)
 plt.ylabel(r'$\phi(t)$', fontsize=15)
