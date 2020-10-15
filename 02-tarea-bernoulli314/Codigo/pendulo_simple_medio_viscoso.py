@@ -17,7 +17,7 @@ l = 5.533       # m
 gamma = 2.533       # s^-1
 
 
-phi_0 = np.pi / gamma       # phi inicial
+phi_0 = np.pi / gamma    # phi inicial
 phipunto_0 = 0          # dphi/dt inicial
 
 # Graficamos la solución de pequeñas oscilaciones
@@ -29,10 +29,12 @@ omega = np.sqrt(g / l - (gamma ** 2) / 4)
 A = phi_0 / np.cos(phi_0)
 T = 2 * np.pi / omega       # Periodo
 
-t_to_plot = np.linspace(0, 2 * T, 200)
+t_to_plot = np.linspace(0, T, 1537)
 
 phi_pequenas_osc = A * np.e ** (- t_to_plot * gamma / 2) \
                   * np.cos(omega * t_to_plot + phi_0)
+
+amplitud = phi_0 * np.e ** (- t_to_plot * gamma / 2)
 
 
 def pendulo_viscoso(t, y):
@@ -84,8 +86,8 @@ def paso_rk4(func, dt, t_n, y_n):
 
 T = 2*np.pi / omega         # Periodo(se usa el mismo creado anteriormente)
 
-dt = 0.0001         # dt = h
-t_eval_rk4 = np.arange(0, 2 * T, dt)        # tiempo de evaluacion rk4
+dt = 0.01         # dt = h
+t_eval_rk4 = np.arange(0, T, dt)        # tiempo de evaluacion rk4
 y_rk4 = np.zeros((len(t_eval_rk4), 2))
 
 # Cond Inicial
@@ -96,11 +98,16 @@ for i in range(1, len(t_eval_rk4)):
     y_rk4[i] = paso_rk4(pendulo_viscoso, dt, t_eval_rk4[i-1], y_rk4[i-1])
 
 
+diferencia_relativa = np.fabs(phi_pequenas_osc - y_rk4[:, 0])
+diferencia_relativa_promedio = np.sum(diferencia_relativa) / 1537
+
 plt.figure(1)
 plt.clf()
 
 plt.plot(t_to_plot, phi_pequenas_osc, label='Pequeñas osc.')
 plt.plot(t_eval_rk4, y_rk4[:, 0], label='Solución RK4')
+plt.plot(t_to_plot, amplitud, '--', label='Amplitud de Amortiguamiento')
+plt.axhline(0, color = 'red')
 
 plt.xlabel('Tiempo [s]', fontsize=15)
 plt.ylabel(r'$\phi(t)$', fontsize=15)
