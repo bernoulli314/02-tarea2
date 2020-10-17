@@ -121,11 +121,13 @@ m = 1
 
 # Energia cinetica
 
-phipunto_po = -A * np.e ** (-gamma * t_to_plot / 2) * ( (gamma/2) * np.cos(omega * t_to_plot + phi_0) + omega * np.sin(omega * t_to_plot + phi_0))
+phipunto_po = (- A * np.e ** (-gamma * t_to_plot / 2) * ((gamma/2) *
+               np.cos(omega * t_to_plot + phi_0) + omega *
+               np.sin(omega * t_to_plot + phi_0)))
 phipunto_rk4 = y_rk4[:, 1]
 
-e_cinetica_po = (1/2) * m * l **2 * phipunto_po **2
-e_cinetica_rk4 = (1/2) * m * l **2 * phipunto_rk4 **2
+e_cinetica_po = (1 / 2) * m * l ** 2 * phipunto_po ** 2
+e_cinetica_rk4 = (1/2) * m * l ** 2 * phipunto_rk4 ** 2
 
 # Energia potencial
 
