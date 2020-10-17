@@ -63,3 +63,13 @@ ax.set_ylabel('y')
 ax.set_zlabel('z')
 
 plt.show()
+
+plt.figure(2)
+plt.clf()
+
+plt.plot(rk4.y[1], rk4.y[2], label='Condiciones Iniciales')
+plt.plot(rk4_2.y[1], rk4_2.y[2], label='Condiciones Perturbadas')
+plt.xlabel('Coordenada Y')
+plt.ylabel('Coordenada Z')
+plt.legend()
+plt.show()

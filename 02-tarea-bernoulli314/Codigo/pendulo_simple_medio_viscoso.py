@@ -17,7 +17,7 @@ l = 5.533       # m
 gamma = 2.533       # s^-1
 
 
-phi_0 = np.pi / 50   # phi inicial
+phi_0 = np.pi / gamma   # phi inicial
 phipunto_0 = 0          # dphi/dt inicial
 
 # Graficamos la solución de pequeñas oscilaciones
