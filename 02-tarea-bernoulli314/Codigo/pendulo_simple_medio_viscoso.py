@@ -17,7 +17,7 @@ l = 5.533       # m
 gamma = 2.533       # s^-1
 
 
-phi_0 = np.pi / gamma    # phi inicial
+phi_0 = np.pi / 50   # phi inicial
 phipunto_0 = 0          # dphi/dt inicial
 
 # Graficamos la solución de pequeñas oscilaciones
@@ -111,5 +111,40 @@ plt.plot(t_to_plot, amplitud, '--', label='Amplitud de Amortiguamiento')
 
 plt.xlabel('Tiempo [s]', fontsize=15)
 plt.ylabel(r'$\phi(t)$', fontsize=15)
+plt.legend()
+plt.show()
+
+# Analisis energetico
+# Se considera una masa m, spg, asumiremos m=1
+
+m = 1
+
+# Energia cinetica
+
+phipunto_po = -A * np.e ** (-gamma * t_to_plot / 2) * ( (gamma/2) * np.cos(omega * t_to_plot + phi_0) + omega * np.sin(omega * t_to_plot + phi_0))
+phipunto_rk4 = y_rk4[:, 1]
+
+e_cinetica_po = (1/2) * m * l **2 * phipunto_po **2
+e_cinetica_rk4 = (1/2) * m * l **2 * phipunto_rk4 **2
+
+# Energia potencial
+
+altura_po = - l * np.cos(phi_pequenas_osc)
+altura_rk4 = - l * np.cos(y_rk4[:, 0])
+
+e_potencial_po = m * g * altura_po
+e_potencial_rk4 = m * g * altura_rk4
+
+# Energia mecanica total
+
+E_po = e_cinetica_po + e_potencial_po
+E_rk4 = e_cinetica_rk4 + e_potencial_rk4
+
+plt.figure(2)
+plt.clf()
+plt.plot(t_to_plot, E_po, label='Energia Pequeñas Oscilaciones')
+plt.plot(t_eval_rk4, E_rk4, label='Energia RK4')
+plt.xlabel('Tiempo[s]')
+plt.ylabel('Energía [Nm]')
 plt.legend()
 plt.show()
